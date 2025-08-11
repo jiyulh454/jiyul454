@@ -1,0 +1,85 @@
+/* Night Shift: Echoing Ward — Styles (mobile-first) */
+:root{
+  --bg:#050505;
+  --bg-alt:#0a0a0a;
+  --panel:rgba(255,255,255,0.05);
+  --panel-strong:rgba(255,255,255,0.08);
+  --text:#e6e6e6;
+  --muted:#a8a8a8;
+  --accent:#e85b5b;
+  --accent-2:#6b8cff;
+  --safe:#8bd48b;
+  --warn:#ffc46b;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Pretendard,Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+#app{position:relative;max-width:480px;height:100vh;margin:0 auto;background:linear-gradient(180deg,#000,#080808)}
+
+/* Overlays */
+.overlay{position:absolute;inset:0;display:none;align-items:center;justify-content:center;padding:16px;z-index:800;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.92))}
+.overlay.visible{display:flex}
+.menu-panel{width:100%;max-width:520px;background:linear-gradient(180deg,#0d0d0d,#060606);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,0.06);box-shadow:0 24px 60px rgba(0,0,0,0.6)}
+.panel{width:100%;max-width:520px;background:linear-gradient(180deg,#0f0f0f,#070707);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,0.06)}
+.panel.small{max-width:420px}
+.dialog-panel{width:100%;max-width:560px;background:linear-gradient(180deg,#0e0e0e,#060606);border-radius:14px;padding:12px 12px 8px;border:1px solid rgba(255,255,255,0.06)}
+
+.game-title{font-weight:800;letter-spacing:0.6px;margin:0 0 6px;font-size:24px}
+.tagline{margin:0 0 12px;color:var(--muted)}
+.menu-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.menu-section{margin-top:14px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06)}
+.prologue{color:#cfcfcf;line-height:1.55}
+
+/* HUD */
+#hud{position:absolute;inset:auto 8px auto 8px;top:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px;z-index:600}
+.objective{background:var(--panel);padding:6px 8px;border-radius:10px;font-size:12px}
+.statbars{display:flex;gap:6px;margin-top:6px}
+.bar{width:120px;height:10px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden}
+.bar > div{height:100%;width:50%}
+.bar.stamina > div{background:linear-gradient(90deg,#6b8cff,#2341ff)}
+.bar.sanity > div{background:linear-gradient(90deg,#ff6b6b,#e85b5b)}
+.inventory{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.inventory .slot{width:30px;height:30px;border-radius:6px;background:var(--panel);display:flex;align-items:center;justify-content:center}
+
+/* Canvas */
+#canvasContainer{position:absolute;left:8px;right:8px;top:76px;bottom:140px;border-radius:14px;overflow:hidden;background:#060606;box-shadow:0 14px 50px rgba(0,0,0,0.7)}
+#gameCanvas,#lightCanvas{position:absolute;left:0;top:0;width:100%;height:100%}
+#vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.3) 65%, rgba(0,0,0,0.7) 100%)}
+
+/* Touch Controls */
+#touchControls{position:absolute;left:0;right:0;bottom:0;z-index:650;pointer-events:none}
+.joystick{position:absolute;left:16px;bottom:22px;width:150px;height:150px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:999px;backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;pointer-events:auto}
+.joystick-knob{width:60px;height:60px;border-radius:999px;background:linear-gradient(180deg,#666,#222);box-shadow:0 10px 20px rgba(0,0,0,0.5)}
+.action-buttons{position:absolute;right:16px;bottom:24px;display:flex;gap:14px;pointer-events:auto}
+.btn.action{width:104px;height:104px;border-radius:999px;border:2px solid rgba(255,255,255,0.06);background:linear-gradient(180deg,#222,#181818);box-shadow:0 10px 24px rgba(0,0,0,0.6)}
+
+/* Buttons */
+.btn{cursor:pointer;pointer-events:auto;border:none;background:var(--panel);color:var(--text);padding:10px 12px;border-radius:12px;transition:transform 0.06s ease, background 0.2s ease;box-shadow:0 6px 16px rgba(0,0,0,0.4);font-weight:600}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:linear-gradient(180deg,#2d2d2d,#1a1a1a);border:1px solid rgba(255,255,255,0.05)}
+
+/* Dialog */
+.dialog-content{min-height:80px;padding:8px}
+.dialog-text{white-space:pre-wrap;line-height:1.55;color:#e0e0e0}
+.dialog-actions{display:flex;justify-content:flex-end;gap:8px;padding:8px}
+
+/* Toasts */
+#toastContainer{position:absolute;left:0;right:0;bottom:150px;display:flex;flex-direction:column;gap:8px;align-items:center;z-index:900;pointer-events:none}
+.toast{background:rgba(0,0,0,0.85);color:#fff;padding:8px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);opacity:0;transform:translateY(8px);transition:opacity .2s ease, transform .2s ease}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* Misc */
+.credits-list{margin:0;padding-left:18px;color:var(--muted)}
+.setting-item{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0}
+.setting-actions{display:flex;justify-content:flex-end}
+
+/* Responsive tweaks */
+@media (max-width:420px){
+  .joystick{width:132px;height:132px}
+  .joystick-knob{width:52px;height:52px}
+  .btn.action{width:94px;height:94px}
+}
+@media (max-width:360px){
+  #hud{top:6px}
+  #canvasContainer{top:68px;bottom:132px}
+}

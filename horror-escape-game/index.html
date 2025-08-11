@@ -102,6 +102,15 @@
         </div>
       </div>
 
+      <div id="minimapOverlay" class="overlay">
+        <div class="panel">
+          <h2>미니맵</h2>
+          <canvas id="minimapCanvas" width="360" height="220" style="width:100%;border-radius:12px;background:#050505"></canvas>
+          <div style="height:8px"></div>
+          <div class="setting-actions"><button id="btnCloseMinimap" class="btn">닫기</button></div>
+        </div>
+      </div>
+
       <!-- HUD -->
       <div id="hud">
         <div class="hud-left">
@@ -112,6 +121,7 @@
           </div>
         </div>
         <div class="hud-right">
+          <button id="btnMinimap" class="btn">🗺 미니맵</button>
           <div id="inventory" class="inventory"></div>
         </div>
       </div>
