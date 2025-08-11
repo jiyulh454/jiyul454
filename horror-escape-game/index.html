@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <title>Night Shift: Echoing Ward</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- Start/Menu Overlay -->
+      <div id="menuOverlay" class="overlay visible">
+        <div class="menu-panel">
+          <h1 class="game-title">Night Shift: Echoing Ward</h1>
+          <p class="tagline">폐쇄된 병동에서 살아남아 탈출하라</p>
+
+          <div class="menu-buttons">
+            <button id="btnNewGame" class="btn primary">새 게임</button>
+            <button id="btnContinue" class="btn" disabled>이어하기</button>
+            <button id="btnSettings" class="btn">설정</button>
+            <button id="btnCredits" class="btn">크레딧</button>
+          </div>
+
+          <div class="menu-section">
+            <h2>프롤로그</h2>
+            <p class="prologue">
+              야간 당직 중이던 당신은 낡은 병원의 구 병동에서 깨어난다. 
+              메모 조각들은 당신이 왜 여기 있는지, 그리고 이곳이 무엇을 숨기는지 알려줄 것이다. 
+              발전기를 복구하고, 열쇠와 단서를 모아, 문을 열고 탈출하라. 
+              하지만… 무언가가 복도 끝 어둠 속에서 당신을 지켜보고 있다.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Overlay -->
+      <div id="settingsOverlay" class="overlay">
+        <div class="panel">
+          <h2>설정</h2>
+          <div class="setting-item">
+            <label for="musicVolume">음악 볼륨</label>
+            <input id="musicVolume" type="range" min="0" max="1" step="0.01" />
+          </div>
+          <div class="setting-item">
+            <label for="sfxVolume">효과음 볼륨</label>
+            <input id="sfxVolume" type="range" min="0" max="1" step="0.01" />
+          </div>
+          <div class="setting-item">
+            <label for="graphicsQuality">그래픽 품질</label>
+            <select id="graphicsQuality">
+              <option value="low">낮음</option>
+              <option value="medium" selected>보통</option>
+              <option value="high">높음</option>
+            </select>
+          </div>
+          <div class="setting-actions">
+            <button id="btnSettingsBack" class="btn">뒤로</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Credits Overlay -->
+      <div id="creditsOverlay" class="overlay">
+        <div class="panel">
+          <h2>크레딧</h2>
+          <ul class="credits-list">
+            <li>기획/개발: 당신과 AI 조력자</li>
+            <li>스토리: Echoing Ward 로그</li>
+            <li>엔진: HTML5 Canvas</li>
+          </ul>
+          <button id="btnCreditsBack" class="btn">뒤로</button>
+        </div>
+      </div>
+
+      <!-- Pause Overlay -->
+      <div id="pauseOverlay" class="overlay">
+        <div class="panel small">
+          <h2>일시정지</h2>
+          <div class="menu-buttons">
+            <button id="btnResume" class="btn primary">계속</button>
+            <button id="btnRestart" class="btn">다시 시작</button>
+            <button id="btnToMenu" class="btn">메뉴로</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dialog/Note Overlay -->
+      <div id="dialogOverlay" class="overlay">
+        <div class="dialog-panel">
+          <div class="dialog-content">
+            <div id="dialogText" class="dialog-text"></div>
+          </div>
+          <div class="dialog-actions">
+            <button id="btnDialogPrev" class="btn">이전</button>
+            <button id="btnDialogNext" class="btn primary">다음</button>
+            <button id="btnDialogClose" class="btn">닫기</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="minimapOverlay" class="overlay">
+        <div class="panel">
+          <h2>미니맵</h2>
+          <canvas id="minimapCanvas" width="360" height="220" style="width:100%;border-radius:12px;background:#050505"></canvas>
+          <div style="height:8px"></div>
+          <div class="setting-actions"><button id="btnCloseMinimap" class="btn">닫기</button></div>
+        </div>
+      </div>
+
+      <!-- HUD -->
+      <div id="hud">
+        <div class="hud-left">
+          <div id="objective" class="objective">목표: 병동에서 탈출</div>
+          <div class="statbars">
+            <div class="bar stamina"><div id="staminaFill"></div></div>
+            <div class="bar sanity"><div id="sanityFill"></div></div>
+          </div>
+        </div>
+        <div class="hud-right">
+          <button id="btnMinimap" class="btn">🗺 미니맵</button>
+          <div id="inventory" class="inventory"></div>
+        </div>
+      </div>
+
+      <!-- Canvas Container -->
+      <div id="canvasContainer">
+        <canvas id="gameCanvas"></canvas>
+        <canvas id="lightCanvas"></canvas>
+        <div id="vignette"></div>
+      </div>
+
+      <!-- Touch Controls -->
+      <div id="touchControls">
+        <div id="joystick" class="joystick">
+          <div id="joystickKnob" class="joystick-knob"></div>
+        </div>
+        <div class="action-buttons">
+          <button id="btnInteract" class="btn action">조작</button>
+          <button id="btnSprint" class="btn action">달리기</button>
+        </div>
+      </div>
+
+      <!-- Toasts -->
+      <div id="toastContainer"></div>
+
+    </div>
+
+    <script src="./game.js"></script>
+  </body>
+</html>
